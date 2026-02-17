@@ -34,6 +34,8 @@ async function getMarcas() {
                 for(const botaodamarca of divMarcas.children)
                     if(botaodamarca.classList[0] == "botaoClickado")  botaodamarca.classList.replace("botaoClickado", "botao");
                 clickado.target.classList.replace("botao", "botaoClickado");
+                
+                getModelos(clickado.target.id);
             })
         }
 
@@ -43,3 +45,42 @@ async function getMarcas() {
     }
 }
 
+async function getModelos(id) {
+    try{
+        const resposta = await fetch(`https://fipe.parallelum.com.br/api/v2/cars/brands/${id}/models`);
+
+        if(!resposta.ok) throw new Error("FODEU DE VEZ NO MODELOS")
+        const modelos = await resposta.json();
+
+        const divDosModelos = document.getElementById("todosOsModelos");
+        divDosModelos.innerHTML = "";
+
+        modelos.forEach(modelo => {
+            const { code: codigo, name: nome } = modelo;
+
+            const btnModelo = document.createElement("div");
+            btnModelo.classList.add("botao");
+            btnModelo.classList.add("modelo");
+            btnModelo.textContent = nome;
+            btnModelo.id = codigo;
+
+            divDosModelos.appendChild(btnModelo)
+        })
+
+        
+        for(btnModelo of divDosModelos.children){
+            btnModelo.addEventListener("click", async clickado =>{
+                console.log(clickado);
+                for(const botaodoModelo of divDosModelos.children)
+                    if(botaodoModelo.classList[0] == "botaoClickado")  botaodoModelo.classList.replace("botaoClickado", "botao");
+                clickado.target.classList.replace("botao", "botaoClickado");
+            })
+        }
+
+        divModelos.style.display = "flex";
+    
+    }
+    catch(error){
+        console.error(error)
+    }
+}
