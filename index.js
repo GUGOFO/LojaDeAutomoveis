@@ -1,13 +1,10 @@
-const btn = document.getElementById("bustar");
 const divMarcas = document.getElementById("todasAsMarcas");
 const divModelos = document.getElementById("divModelos");
 const divCarros = document.getElementById("divDosCarros");
 const divFundoEscondido = document.getElementById("fundoEscondido");
 const btnSair = document.getElementById("voltarParaInicio");
 
-btn.addEventListener("click", () => {
-    getMarcas();
-})
+getMarcas();
 
 async function getMarcas() {
     try{
@@ -50,6 +47,7 @@ async function getMarcas() {
 async function getModelos(id) {
     try{
         const resposta = await fetch(`https://fipe.parallelum.com.br/api/v2/cars/brands/${id}/models`);
+        divCarros.style.display = "none";
 
         if(!resposta.ok) throw new Error("FODEU DE VEZ NO MODELOS")
         const modelos = await resposta.json();
@@ -81,7 +79,6 @@ async function getModelos(id) {
         }
 
         divModelos.style.display = "flex";
-    
     }
     catch(error){
         console.error(error)
