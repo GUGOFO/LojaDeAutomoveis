@@ -3,8 +3,8 @@ body{
     width: 100vw;
 
     margin: 0;
-    padding: 0;
-    gap: 15px;
+    padding: 50px 0px;
+    gap: 30px;
 
     display: flex;
     align-items: center;
@@ -114,10 +114,10 @@ h1, p{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     flex-wrap: wrap;
     overflow-x: auto;
-
+    
     padding: 10px;
     gap: 20px;
 }
@@ -133,4 +133,44 @@ h1, p{
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     padding: 30px 16px;
+}
+
+#divCarroEscolhido{
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#fotoDoCarroEscolhido{
+    height: 300px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#voltarParaInicio{
+    background-color: rgb(255, 106, 106);
+    border: 3px rgb(172, 1, 1) solid;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#voltarParaInicio:hover{
+    background-color: rgb(236, 101, 101);
+    border: 3px rgb(153, 2, 2) solid;
+}
+
+#voltarParaInicio:active{
+    background-color: rgb(211, 90, 90);
+    border: 3px rgb(134, 2, 2) solid;
 }
