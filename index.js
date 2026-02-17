@@ -2,6 +2,8 @@ const btn = document.getElementById("bustar");
 const divMarcas = document.getElementById("todasAsMarcas");
 const divModelos = document.getElementById("divModelos");
 const divCarros = document.getElementById("divDosCarros");
+const divFundoEscondido = document.getElementById("fundoEscondido");
+const btnSair = document.getElementById("voltarParaInicio");
 
 btn.addEventListener("click", () => {
     getMarcas();
@@ -70,7 +72,6 @@ async function getModelos(id) {
         
         for(btnModelo of divDosModelos.children){
             btnModelo.addEventListener("click", async clickado =>{
-                console.log(clickado);
                 for(const botaodoModelo of divDosModelos.children)
                     if(botaodoModelo.classList[0] == "botaoClickado")  botaodoModelo.classList.replace("botaoClickado", "botao");
                 clickado.target.classList.replace("botao", "botaoClickado");
@@ -117,9 +118,14 @@ async function getTipos(id, code) {
             displayCarro.appendChild(texto);
         })      
 
-        for(displayCarro of divDosCarros.children){
-            displayCarro.addEventListener("click", async clickado =>{
-                
+        for(let carro of divDosCarros.children){
+            carro.addEventListener("click", async clickado =>{
+                let target;
+                if(clickado.target.classList[0] != "displayCarro") target = clickado.target.parentElement;
+                else target = clickado.target;
+                console.log(target)
+                const ano = target.id;
+                getCarro(id, code, ano, carro.children[0].src);
             })
         } 
 
@@ -130,6 +136,47 @@ async function getTipos(id, code) {
     }
 }
 
-async function getCarro(params) {
-    
+async function getCarro(id, code, year, src) {
+    try{
+        const resposta = await fetch(`https://fipe.parallelum.com.br/api/v2/cars/brands/${id}/models/${code}/years/${year}`)
+        if(!resposta.ok) throw new Error("FODEU NO CARRO MENOOOO");
+        const dados = await resposta.json();
+
+        //Sim estou com preguiça de fazer logica com childElement muito obrigado passar bem ksaksa
+        const divCarroEscolhido = document.getElementById("divCarroEscolhido");
+        const fotoDoCarroEscolhido = document.getElementById("fotoDoCarroEscolhido")
+        const marcaEscolhida = document.getElementById("marcaEscolhida")
+        const combustivelEscolhido = document.getElementById("combustivelEscolhido")
+        const eficienciaEscolhida = document.getElementById("eficienciaEscolhida")
+        const modeloEscolhido = document.getElementById("modeloEscolhido")
+        const anoEscolhido = document.getElementById("anoEscolhido")
+        const precoAtualEscolhido = document.getElementById("precoAtualEscolhido")
+
+        const { brand: marca,
+                fuel: combustivel,
+                fuelAcronym: eficiencia,
+                model: modelo,
+                modelYear: ano,
+                price: preco,
+        } = dados;
+
+        console.log(dados)
+
+        fotoDoCarroEscolhido.src = src;
+        marcaEscolhida.innerHTML = `<b>Marca:</b> ${marca}`;
+        combustivelEscolhido.innerHTML = `<b>Combustível:</b> ${combustivel}`;
+        eficienciaEscolhida.innerHTML = `<b>Eficiência:</b> ${eficiencia}`;
+        modeloEscolhido.innerHTML = `<b>Modelo:</b> ${modelo}`;
+        anoEscolhido.innerHTML = `<b>Ano:</b> ${ano}`;
+        precoAtualEscolhido.innerHTML = `<b>Preço atual:</b> ${preco}`;
+        
+        divFundoEscondido.style.display = "flex";
+    }
+    catch(error){
+        console.log(error);
+    }
 }
+
+btnSair.addEventListener("click", () => {
+    divFundoEscondido.style.display = "none";
+});
