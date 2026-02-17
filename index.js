@@ -1,7 +1,7 @@
 const btn = document.getElementById("bustar");
 const divMarcas = document.getElementById("todasAsMarcas");
 const divModelos = document.getElementById("divModelos");
-const divDosCarros = document.getElementById("divDosCarros");
+const divCarros = document.getElementById("divDosCarros");
 
 btn.addEventListener("click", () => {
     getMarcas();
@@ -15,7 +15,7 @@ async function getMarcas() {
         const marcas = await resposta.json();
         divMarcas.innerHTML = "";
         divModelos.style.display = "none";
-        divDosCarros.style.display = "none";
+        divCarros.style.display = "none";
 
         marcas.forEach(marca => {
             const { code: codigo, name: nome} = marca;
@@ -74,6 +74,8 @@ async function getModelos(id) {
                 for(const botaodoModelo of divDosModelos.children)
                     if(botaodoModelo.classList[0] == "botaoClickado")  botaodoModelo.classList.replace("botaoClickado", "botao");
                 clickado.target.classList.replace("botao", "botaoClickado");
+
+                getTipos(id, clickado.target.id);
             })
         }
 
@@ -83,4 +85,51 @@ async function getModelos(id) {
     catch(error){
         console.error(error)
     }
+}
+
+async function getTipos(id, code) {
+    try{
+        const resposta = await fetch(`https://fipe.parallelum.com.br/api/v2/cars/brands/${id}/models/${code}/years`);
+        if(!resposta.ok) throw new Error("FODEU NOS TIPOS MENO");
+        const carros = await resposta.json();
+
+        const divDosCarros = document.getElementById("displayCarros");
+        divDosCarros.innerHTML = "";
+
+        carros.forEach(carro => {
+            const { code: codigo, name: nome } = carro;
+
+            const displayCarro = document.createElement("div");
+            const fotoDoCarro = document.createElement("img");
+            const texto = document.createElement("p");
+
+            displayCarro.classList.add("displayCarro");
+            fotoDoCarro.classList.add("fotoDoCarro");
+            texto.classList.add("texto");
+
+            const indexAleatorio = Math.floor(Math.random() * 16);
+            fotoDoCarro.src = `imgs/carros/carro${indexAleatorio}.png`;
+            texto.textContent = nome;
+            displayCarro.id = codigo;
+
+            divDosCarros.appendChild(displayCarro);
+            displayCarro.appendChild(fotoDoCarro);
+            displayCarro.appendChild(texto);
+        })      
+
+        for(displayCarro of divDosCarros.children){
+            displayCarro.addEventListener("click", async clickado =>{
+                
+            })
+        } 
+
+        divCarros.style.display = "flex";
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
+async function getCarro(params) {
+    
 }
