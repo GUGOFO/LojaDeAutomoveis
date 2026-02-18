@@ -1,3 +1,25 @@
+/*   <3 FEITO SEM CHAT, GEMINI, IA OU QUALQUER COISA ASSIM <3
+
+  Caso vc estaja aq para ver se o chat fez isso n se preocupe,
+  esse repositorio foi feito sem a ajuda de IAs, ele serve para me ajudar
+  a virar um programador melhor e não para "preencher Github"
+  Agora fique com minhas considerações finais sobre esse projeto (boas e ruins skaska)
+
+  1 - Acho que estou melhorando com apis, daqui 3 projetos eu vou pra react ou algo assim,
+    espero conseguir entender alguma coisa quando eu chegar la sakjsa
+  2 - Meu amigo me ligou hj, deu gitclone no projeto e falou "Man, tem algo errado nas imagens..."
+    em suma, esqueci de colocar "./" antes do caminho para as imagens, isso serve para o computador
+    saber q aquele caminho começa da pasta q vc esta... JA ARRUMEI ksskakas
+  3 - Gostaria de declarar meu odio ao individuo que criou essa api, ele poderia ser uma pessoa boa e 
+    ter feito com que tendo o ID da montadora ,ou pelo menos o carro que voce queira ver, voce possa
+    acessar todas as informaçoes... mas naaaaaaaaaaao voce tem q fazer uma puta volta e dar 3 fetchs... 
+    para pegar uma coisa.... UMA COISA, nem são multiplas...
+  4 - fetch(`https://fipe.parallelum.com.br/api/v2/cars/brands/${id}/models/${code}/years/${year}`)
+  5 - Ah esqueço constantemente da merda do await, ai fico "uai... pq isso n funcion?" paia
+
+*/
+
+
 const divMarcas = document.getElementById("todasAsMarcas");
 const divModelos = document.getElementById("divModelos");
 const divCarros = document.getElementById("divDosCarros");
