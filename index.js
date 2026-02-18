@@ -106,7 +106,7 @@ async function getTipos(id, code) {
             texto.classList.add("texto");
 
             const indexAleatorio = Math.floor(Math.random() * 16);
-            fotoDoCarro.src = `imgs/carros/carro${indexAleatorio}.png`;
+            fotoDoCarro.src = `./imgs/carros/carro${indexAleatorio}.png`;
             texto.textContent = nome;
             displayCarro.id = codigo;
 
